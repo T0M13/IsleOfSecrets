@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool showGizmos = true;
     [SerializeField] private float gizmoLineLength = 2f;
     [SerializeField] private float gizmoSphereRadius = 0.1f;
+    public Vector2 Movement { get => movement; set => movement = value; }
+    public bool IsSprinting { get => isSprinting; set => isSprinting = value; }
 
     private void Awake()
     {
@@ -50,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return;
 
-        moveComponent.Move( movement, isSprinting, playerReferences.FollowPlayerTarget, transform);
+        moveComponent.Move(Movement, IsSprinting, playerReferences.FollowPlayerTarget, transform);
 
     }
 
@@ -59,17 +61,14 @@ public class PlayerMovement : MonoBehaviour
         if (!showGizmos) return;
     }
 
-    #region Inputs
-
     public void OnMove(InputAction.CallbackContext value)
     {
-        movement = value.ReadValue<Vector2>();
+        Movement = value.ReadValue<Vector2>();
     }
 
     public void OnSprint(InputAction.CallbackContext value)
     {
-        isSprinting = value.ReadValue<float>() >= 1f;
+        IsSprinting = value.ReadValue<float>() >= 1f;
     }
 
-    #endregion
 }

@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 8246291574839838560}
   - component: {fileID: 8993179491109727508}
   - component: {fileID: 2258816038972125876}
+  - component: {fileID: 1937458281322595819}
   - component: {fileID: 3650390321845994788}
   - component: {fileID: 7047744283228251722}
   m_Layer: 0
@@ -173,7 +174,19 @@ MonoBehaviour:
     m_ActionId: c299e566-4dea-4016-bd45-f8eff61acbce
     m_ActionName: Player/Aim[/Mouse/rightButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8993179491109727508}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c43b877d-2b4c-48bf-949c-cfe0ee7f6a6a
     m_ActionName: Player/Sprint[/Keyboard/shift]
   - m_PersistentCalls:
@@ -271,6 +284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 8993179491109727508}
   playerLook: {fileID: 2258816038972125876}
+  playerAnimation: {fileID: 1937458281322595819}
   playerBody: {fileID: 3650390321845994788}
   playerCollider: {fileID: 7047744283228251722}
   isGrounded: 0
@@ -317,6 +331,20 @@ MonoBehaviour:
   playerReferences: {fileID: 8246291574839838560}
   lookComponent: {fileID: 11400000, guid: 80f249c92cbae394e9dd41c43a143548, type: 2}
   lookPos: {x: 0, y: 0}
+--- !u!114 &1937458281322595819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161471931994534857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1733adfd33ed2bd4cb23941467da7ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerReferences: {fileID: 8246291574839838560}
+  playerAnimator: {fileID: 5685264838092432841}
 --- !u!54 &3650390321845994788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1095,7 +1123,7 @@ Transform:
   m_GameObject: {fileID: 2197752492261996220}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

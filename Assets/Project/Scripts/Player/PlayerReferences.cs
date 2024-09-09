@@ -8,6 +8,7 @@ public class PlayerReferences : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerLook playerLook;
+    [SerializeField] private PlayerAnimation playerAnimation;
     [SerializeField] private Rigidbody playerBody;
     [SerializeField] private CapsuleCollider playerCollider;
     [Header("Grounded")]
@@ -26,6 +27,7 @@ public class PlayerReferences : MonoBehaviour
     public bool IsGrounded { get => isGrounded; set => isGrounded = value; }
     public CinemachineVirtualCamera VirtualPlayerCamera { get => virtualPlayerCamera; set => virtualPlayerCamera = value; }
     public Transform FollowPlayerTarget { get => followPlayerTarget; set => followPlayerTarget = value; }
+    public PlayerAnimation PlayerAnimation { get => playerAnimation; set => playerAnimation = value; }
 
     private void OnValidate()
     {
@@ -61,6 +63,18 @@ public class PlayerReferences : MonoBehaviour
             catch
             {
                 Debug.Log("PlayerLook Missing from PlayerReferences");
+            }
+        }
+
+        if (PlayerAnimation == null)
+        {
+            try
+            {
+                PlayerAnimation = GetComponent<PlayerAnimation>();
+            }
+            catch
+            {
+                Debug.Log("PlayerAnimation Missing from PlayerReferences");
             }
         }
 
