@@ -8,6 +8,9 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private PlayerReferences playerReferences;
     [SerializeField] private Animator playerAnimator;
 
+    [Header("Settings")]
+    [SerializeField] private float smoothTime = 0.1f;
+
     [Header("Variables")]
     private static readonly string xPosParam = "xPos";
     private static readonly string yPosParam = "yPos";
@@ -58,8 +61,11 @@ public class PlayerAnimation : MonoBehaviour
         {
             movement = playerReferences.PlayerMovement.Movement;
 
-            playerAnimator.SetFloat(xPosParam, movement.x);
-            playerAnimator.SetFloat(yPosParam, movement.y);
+            float targetX = Mathf.Lerp(playerAnimator.GetFloat(xPosParam), movement.x, smoothTime);
+            float targetY = Mathf.Lerp(playerAnimator.GetFloat(yPosParam), movement.y, smoothTime);
+
+            playerAnimator.SetFloat(xPosParam, targetX);
+            playerAnimator.SetFloat(yPosParam, targetY);
 
             bool isMoving = movement.magnitude > 0.1f;
             playerAnimator.SetBool(isMovingParam, isMoving);

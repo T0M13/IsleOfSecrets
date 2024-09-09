@@ -345,6 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerReferences: {fileID: 8246291574839838560}
   playerAnimator: {fileID: 5685264838092432841}
+  smoothTime: 0.4
 --- !u!54 &3650390321845994788
 Rigidbody:
   m_ObjectHideFlags: 0
