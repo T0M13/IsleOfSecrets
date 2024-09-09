@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minViewDistance: 25
   maxViewDistance: 340
-  sensitivity: 100
-  rotationPower: 1
+  sensitivity: 50
+  rotationPower: 0.5
   reverseMouse: 0
   midAngleThreshold: 180
