@@ -262,7 +262,19 @@ MonoBehaviour:
     m_ActionId: c047036d-eaad-4392-8d0a-a231493adf0e
     m_ActionName: Player/Look[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8993179491109727508}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 152cba1f-cedb-476a-bd52-632a33620020
     m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
@@ -313,6 +325,12 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   canMove: 1
   isSprinting: 0
+  jumpComponent: {fileID: 11400000, guid: b3e341d863a4aff42b30152626f47d88, type: 2}
+  canJump: 1
+  isJumping: 0
+  jumpThreshold: 0.1
+  isFalling: 0
+  fallThreshold: -2
   showGizmos: 1
   gizmoLineLength: 2
   gizmoSphereRadius: 0.1
@@ -345,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerReferences: {fileID: 8246291574839838560}
   playerAnimator: {fileID: 5685264838092432841}
+  currentState: 0
   smoothTime: 0.4
 --- !u!54 &3650390321845994788
 Rigidbody:

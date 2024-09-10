@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
 
     [Header("Settings")]
+    [SerializeField][ShowOnly] private AnimationState currentState = AnimationState.Idle;
     [SerializeField] private float smoothTime = 0.1f;
 
     [Header("Variables")]
@@ -16,6 +17,8 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly string yPosParam = "yPos";
     private static readonly string isMovingParam = "isMoving";
     private static readonly string isSprintingParam = "isSprinting";
+    private static readonly string isJumpingParam = "isJumping";
+    private static readonly string isFallingParam = "isFalling";
 
     private Vector2 movement;
 
@@ -50,6 +53,15 @@ public class PlayerAnimation : MonoBehaviour
         }
     }
 
+    public void ChangeAnimationState(AnimationState newState)
+    {
+        if (currentState == newState) return;
+
+        currentState = newState;
+
+        playerAnimator.Play(newState.ToString());
+    }
+
     private void Update()
     {
         UpdateAnimatorParameters();
@@ -61,6 +73,8 @@ public class PlayerAnimation : MonoBehaviour
         {
             movement = playerReferences.PlayerMovement.Movement;
 
+            playerAnimator.SetBool(isFallingParam, playerReferences.PlayerMovement.IsFalling);
+
             float targetX = Mathf.Lerp(playerAnimator.GetFloat(xPosParam), movement.x, smoothTime);
             float targetY = Mathf.Lerp(playerAnimator.GetFloat(yPosParam), movement.y, smoothTime);
 
@@ -70,6 +84,8 @@ public class PlayerAnimation : MonoBehaviour
             bool isMoving = movement.magnitude > 0.1f;
             playerAnimator.SetBool(isMovingParam, isMoving);
             playerAnimator.SetBool(isSprintingParam, playerReferences.PlayerMovement.IsSprinting);
+
+            playerAnimator.SetBool(isJumpingParam, playerReferences.PlayerMovement.IsJumping);
         }
     }
 }
