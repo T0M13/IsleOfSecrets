@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24d808cc82e83749a3fb76e79ec440f, type: 3}
   m_Name: MoveBehaviour
   m_EditorClassIdentifier: 
-  crouchSpeed: 1
+  crouchSpeed: 1.75
   moveSpeed: 2
   runSpeed: 4
