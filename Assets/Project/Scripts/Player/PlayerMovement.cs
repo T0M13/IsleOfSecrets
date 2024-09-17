@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 movement;
     [SerializeField] private bool canMove = true;
     [SerializeField][ShowOnly] private bool isSprinting;
+    [SerializeField][ShowOnly] private bool isCrouching;
 
     [Header("Jump")]
     [SerializeField] private JumpComponent jumpComponent;
@@ -33,9 +34,54 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gizmoSphereRadius = 0.1f;
 
     public Vector2 Movement { get => movement; set => movement = value; }
-    public bool IsSprinting { get => isSprinting; set => isSprinting = value; }
-    public bool IsJumping { get => isJumping; set => isJumping = value; }
-    public bool IsFalling { get => isFalling; set => isFalling = value; }
+    public bool IsSprinting
+    {
+        get => isSprinting;
+        set
+        {
+            if (isSprinting != value)
+            {
+                isSprinting = value;
+                OnSprintingChanged();
+            }
+        }
+    }
+    public bool IsJumping
+    {
+        get => isJumping;
+        set
+        {
+            if (isJumping != value)
+            {
+                isJumping = value;
+                OnJumpingChanged();
+            }
+        }
+    }
+    public bool IsFalling
+    {
+        get => isFalling;
+        set
+        {
+            if (isFalling != value)
+            {
+                isFalling = value;
+                OnFallingChanged();
+            }
+        }
+    }
+    public bool IsCrouching
+    {
+        get => isCrouching;
+        set
+        {
+            if (isCrouching != value)
+            {
+                isCrouching = value;
+                OnCrouchingChanged();
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -63,14 +109,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
-        CheckJumpAndFallThresholds(); // Check thresholds in every FixedUpdate
+        CheckJumpAndFallThresholds();
     }
 
     private void Move()
     {
         if (!canMove) return;
 
-        moveComponent.Move(Movement, IsSprinting, playerReferences.FollowPlayerTarget, transform);
+        moveComponent.Move(Movement, IsSprinting, IsCrouching, playerReferences.FollowPlayerTarget, transform);
     }
 
     private void Jump()
@@ -101,6 +147,35 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    private void OnSprintingChanged()
+    {
+
+    }
+
+    private void OnJumpingChanged()
+    {
+
+    }
+
+    private void OnFallingChanged()
+    {
+
+    }
+
+    private void OnCrouchingChanged()
+    {
+        if (isCrouching)
+        {
+            playerReferences.SetCrouchCollider();
+        }
+        else
+        {
+            playerReferences.SetDefaultCollider();
+        }
+    }
+
+
     private void OnDrawGizmos()
     {
         if (!showGizmos) return;
@@ -113,12 +188,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSprint(InputAction.CallbackContext value)
     {
+        if (isCrouching) return;
         IsSprinting = value.ReadValue<float>() >= 1f;
+    }
+    public void OnCrouch(InputAction.CallbackContext value)
+    {
+        if (isSprinting) return;
+        IsCrouching = value.ReadValue<float>() >= 1f;
     }
 
     public void OnJump(InputAction.CallbackContext value)
     {
         if (isJumping) return;
+        if (isCrouching) return;
         isJumping = value.ReadValue<float>() >= 1f;
     }
 }

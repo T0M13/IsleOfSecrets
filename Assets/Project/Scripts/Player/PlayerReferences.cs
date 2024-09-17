@@ -20,6 +20,13 @@ public class PlayerReferences : MonoBehaviour
     [SerializeField][ShowOnly] private CinemachineVirtualCamera virtualPlayerCamera;
     [SerializeField] private Transform followPlayerTarget;
 
+    [Header("Collider Settings")]
+    [SerializeField] private Vector3 defaultColliderCenter = new Vector3(0, 0, 0);
+    [SerializeField] private float defaultColliderHeight = 1.75f;
+
+    [SerializeField] private Vector3 crouchColliderCenter = new Vector3(0.075f, -0.25f, 0.2f);
+    [SerializeField] private float crouchColliderHeight = 1.5f;
+
     public PlayerMovement PlayerMovement { get => playerMovement; set => playerMovement = value; }
     public PlayerLook PlayerLook { get => playerLook; set => playerLook = value; }
     public Rigidbody PlayerBody { get => playerBody; set => playerBody = value; }
@@ -120,6 +127,17 @@ public class PlayerReferences : MonoBehaviour
             VirtualPlayerCamera = newCamera.GetComponent<CinemachineVirtualCamera>();
             VirtualPlayerCamera.Follow = FollowPlayerTarget;
         }
+    }
+
+    public void SetDefaultCollider()
+    {
+        playerCollider.center = defaultColliderCenter;
+        playerCollider.height = defaultColliderHeight;
+    }
+    public void SetCrouchCollider()
+    {
+        playerCollider.center = crouchColliderCenter;
+        playerCollider.height = crouchColliderHeight;
     }
 
     private void OnDrawGizmosSelected()

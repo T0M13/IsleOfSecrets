@@ -11,6 +11,7 @@ public class PlayerAnimation : MonoBehaviour
     [Header("Settings")]
     [SerializeField][ShowOnly] private AnimationState currentState = AnimationState.Idle;
     [SerializeField] private float smoothTime = 0.1f;
+    [SerializeField] private float smoothInputSpeed = 5f;
 
     [Header("Variables")]
     private static readonly string xPosParam = "xPos";
@@ -19,8 +20,10 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly string isSprintingParam = "isSprinting";
     private static readonly string isJumpingParam = "isJumping";
     private static readonly string isFallingParam = "isFalling";
+    private static readonly string isCrouchingParam = "isCrouching";
 
-    private Vector2 movement;
+    private Vector2 smoothedMovement = Vector2.zero;
+    private Vector2 movementVelocity = Vector2.zero;
 
     private void Awake()
     {
@@ -71,21 +74,25 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (playerReferences != null && playerAnimator != null)
         {
-            movement = playerReferences.PlayerMovement.Movement;
+            Vector2 rawMovement = playerReferences.PlayerMovement.Movement;
+
+            smoothedMovement.x = Mathf.SmoothDamp(smoothedMovement.x, rawMovement.x, ref movementVelocity.x, 1f / smoothInputSpeed);
+            smoothedMovement.y = Mathf.SmoothDamp(smoothedMovement.y, rawMovement.y, ref movementVelocity.y, 1f / smoothInputSpeed);
 
             playerAnimator.SetBool(isFallingParam, playerReferences.PlayerMovement.IsFalling);
 
-            float targetX = Mathf.Lerp(playerAnimator.GetFloat(xPosParam), movement.x, smoothTime);
-            float targetY = Mathf.Lerp(playerAnimator.GetFloat(yPosParam), movement.y, smoothTime);
+            float targetX = Mathf.Lerp(playerAnimator.GetFloat(xPosParam), smoothedMovement.x, smoothTime);
+            float targetY = Mathf.Lerp(playerAnimator.GetFloat(yPosParam), smoothedMovement.y, smoothTime);
 
             playerAnimator.SetFloat(xPosParam, targetX);
             playerAnimator.SetFloat(yPosParam, targetY);
 
-            bool isMoving = movement.magnitude > 0.1f;
+            bool isMoving = smoothedMovement.magnitude > 0.1f;
             playerAnimator.SetBool(isMovingParam, isMoving);
             playerAnimator.SetBool(isSprintingParam, playerReferences.PlayerMovement.IsSprinting);
 
             playerAnimator.SetBool(isJumpingParam, playerReferences.PlayerMovement.IsJumping);
+            playerAnimator.SetBool(isCrouchingParam, playerReferences.PlayerMovement.IsCrouching);
         }
     }
 }

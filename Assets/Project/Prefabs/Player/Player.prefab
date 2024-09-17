@@ -302,7 +302,7 @@ MonoBehaviour:
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 4294967295
   groundCheckDistance: 1.1
   virtualPlayerCameraPrefab: {fileID: 2835343572693346560, guid: 5ec86a07fcbcd984a97f5aac3996d181,
     type: 3}
@@ -331,6 +331,7 @@ MonoBehaviour:
   jumpThreshold: 0.1
   isFalling: 0
   fallThreshold: -2
+  verticalVelocity: 0
   showGizmos: 1
   gizmoLineLength: 2
   gizmoSphereRadius: 0.1
@@ -364,7 +365,8 @@ MonoBehaviour:
   playerReferences: {fileID: 8246291574839838560}
   playerAnimator: {fileID: 5685264838092432841}
   currentState: 0
-  smoothTime: 0.4
+  smoothTime: 1
+  smoothInputSpeed: 15
 --- !u!54 &3650390321845994788
 Rigidbody:
   m_ObjectHideFlags: 0

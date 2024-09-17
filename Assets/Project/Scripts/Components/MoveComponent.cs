@@ -6,15 +6,16 @@ using UnityEngine;
 public class MoveComponent : ScriptableObject, MoveBehaviour
 {
     [Header("Move Settings")]
+    [SerializeField] private float crouchSpeed = 2f;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float runSpeed = 8f;
 
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
 
-    public void Move(Vector2 movement, bool isSprinting, Transform followTransform, Transform playerTransform)
+    public void Move(Vector2 movement, bool isSprinting, bool isCrouching, Transform followTransform, Transform playerTransform)
     {
-        float speed = isSprinting ? runSpeed : moveSpeed;
+        float speed = isCrouching ? crouchSpeed : (isSprinting ? runSpeed : moveSpeed);
 
         if (movement != Vector2.zero)
         {

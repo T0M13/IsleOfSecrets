@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "c7613e2f-0cc1-4114-9d4d-aa334b77ee2f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "f46fd0bf-f7de-4d64-a71e-8d3c26c3c2f4",
@@ -402,6 +411,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0ca5519-bd4d-4921-97bf-982265749957",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
