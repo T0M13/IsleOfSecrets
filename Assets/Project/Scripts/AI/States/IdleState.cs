@@ -26,7 +26,6 @@ public class IdleState : AIState
             if (Random.value < chanceToPatrol && agent.StateMachine.HasState(AIStateType.Patrol))
             {
                 agent.TransitionToState(AIStateType.Patrol);
-                Debug.Log("Changing State to: " + AIStateType.Patrol);
                 return;
             }
         }
@@ -48,5 +47,16 @@ public class IdleState : AIState
         this.idleTime = idleTime;
         this.maxIdleTime = maxIdleTime;
         this.chanceToPatrol = chanceToPatrol;
+    }
+
+    public void DrawGizmos(AIAgent agent)
+    {
+        Gizmos.color = Color.blue;
+
+        float idleProgress = idleTime / maxIdleTime;
+        float idleRadius = Mathf.Lerp(0.2f, 1f, idleProgress);
+        Gizmos.DrawSphere(agent.transform.position, idleRadius);
+
+        UnityEditor.Handles.Label(agent.transform.position + Vector3.up * 2f, $"Chance to Patrol: {chanceToPatrol * 100}%");
     }
 }

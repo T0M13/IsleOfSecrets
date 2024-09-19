@@ -14,7 +14,8 @@ public class PlayerReferences : MonoBehaviour
     [Header("Grounded")]
     [SerializeField] private bool isGrounded;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckDistance = 1f;
+    [SerializeField] private float groundCheckRadius = 1f;
+    [SerializeField] private float groundCheckDistance = 1.1f;
     [Header("Camera")]
     [SerializeField] private GameObject virtualPlayerCameraPrefab;
     [SerializeField][ShowOnly] private CinemachineVirtualCamera virtualPlayerCamera;
@@ -116,8 +117,9 @@ public class PlayerReferences : MonoBehaviour
 
     private bool CheckIsGrounded(Rigidbody rb)
     {
-        return Physics.Raycast(rb.position, Vector3.down, groundCheckDistance, groundLayer);
+        return Physics.SphereCast(rb.position, groundCheckRadius, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer);
     }
+
 
     private void SpawnVirtualCamera()
     {
@@ -146,10 +148,9 @@ public class PlayerReferences : MonoBehaviour
         {
             Gizmos.color = Color.red;
 
-            Gizmos.DrawLine(playerBody.position, playerBody.position + Vector3.down * groundCheckDistance);
-
-            Gizmos.DrawSphere(playerBody.position + Vector3.down * groundCheckDistance, 0.05f);
+            Gizmos.DrawWireSphere(playerBody.position + Vector3.down * groundCheckDistance, groundCheckRadius);
         }
     }
+
 
 }

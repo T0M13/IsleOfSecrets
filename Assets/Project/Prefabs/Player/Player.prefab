@@ -236,7 +236,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  groundCheckDistance: 1.1
+  groundCheckRadius: 0.3
+  groundCheckDistance: 0.6
   virtualPlayerCameraPrefab: {fileID: 2835343572693346560, guid: 5ec86a07fcbcd984a97f5aac3996d181,
     type: 3}
   virtualPlayerCamera: {fileID: 0}
@@ -265,6 +266,7 @@ MonoBehaviour:
   isCrouching: 0
   jumpComponent: {fileID: 11400000, guid: b3e341d863a4aff42b30152626f47d88, type: 2}
   canJump: 1
+  hasJumped: 0
   isJumping: 0
   jumpThreshold: 0.1
   isFalling: 0
@@ -339,7 +341,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 161471931994534857}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f5d73b644444d8946abdddd8f222779d, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -513,7 +515,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7523138913964671871}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -1.022, y: -3.09, z: 12.529}
 --- !u!1 &1300254923920263241
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,6 +654,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6047407403465015799}
   - component: {fileID: 5685264838092432841}
+  - component: {fileID: 1512195719159100359}
+  - component: {fileID: 1963227581478135021}
   m_Layer: 0
   m_Name: Character_Pirate_Deckhand_01
   m_TagString: Untagged
@@ -697,6 +701,91 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1512195719159100359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197752492261996220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 0}
+    m_Active: 1
+  m_Effectors: []
+--- !u!114 &1963227581478135021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197752492261996220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 0
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 4004420458195612976}
+  - {fileID: 6535079909220097310}
+  - {fileID: 7824314201020100547}
+  - {fileID: 7340428792573006647}
+  - {fileID: 6416488258216374141}
+  - {fileID: 5894710594593062158}
+  - {fileID: 4961778078726211872}
+  - {fileID: 3713656112404537356}
+  - {fileID: 6341885053706369303}
+  - {fileID: 6009539644198693197}
+  - {fileID: 9153626596224021769}
+  - {fileID: 8567628887805320651}
+  - {fileID: 3679091644600003956}
+  - {fileID: 7583849144371394755}
+  - {fileID: 4065092596763825603}
+  - {fileID: 6979417732170897944}
+  - {fileID: 2751634100315249872}
+  - {fileID: 4917123377009800995}
+  - {fileID: 4022655571840771867}
+  - {fileID: 6955185869988365728}
+  - {fileID: 2963492843486389643}
+  - {fileID: 5660294160379626667}
+  - {fileID: 3023376184655948783}
+  - {fileID: 2625282543657100193}
+  - {fileID: 4572929081519954081}
+  - {fileID: 3810694126916211563}
+  - {fileID: 8705786939960092194}
+  - {fileID: 8966053823204234411}
+  - {fileID: 0}
+  - {fileID: 5825958133392607986}
+  - {fileID: 1226744927003560379}
+  - {fileID: 3020320511418283162}
+  - {fileID: 3131182025160134118}
+  - {fileID: 3163838620457346000}
+  - {fileID: 2504030391028731181}
+  - {fileID: 7523138913964671871}
+  - {fileID: 3146324535718613199}
+  - {fileID: 5146343873607336953}
+  - {fileID: 1121391419504583118}
+  - {fileID: 5640225200833765752}
+  - {fileID: 945306559056550902}
+  - {fileID: 2233242545446231105}
+  - {fileID: 612177411075608518}
+  - {fileID: 8396407946803735011}
+  - {fileID: 3955175865704883120}
+  - {fileID: 1068449659790490930}
+  - {fileID: 8370571350932625041}
+  - {fileID: 5139878962172870858}
+  - {fileID: 2389587972617160294}
+  - {fileID: 6761035186614976260}
 --- !u!1 &2292031239806783888
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,7 +881,7 @@ Transform:
   m_Children:
   - {fileID: 7523138913964671871}
   m_Father: {fileID: 1226744927003560379}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -6.32, y: -6.738, z: 94.413}
 --- !u!1 &2582462815197048733
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,7 +1240,7 @@ Transform:
   m_Children:
   - {fileID: 1121391419504583118}
   m_Father: {fileID: 5825958133392607986}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.207, y: 5.893, z: 117.52}
 --- !u!1 &3536814290337985656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1748,7 @@ Transform:
   m_Children:
   - {fileID: 3146324535718613199}
   m_Father: {fileID: 2504030391028731181}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.892, y: -4.225, z: 71.503}
 --- !u!1 &6999945347302086628
 GameObject:
   m_ObjectHideFlags: 0

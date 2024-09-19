@@ -16,4 +16,5 @@ MonoBehaviour:
   patrolRadius: 10
   maxPatrolTime: 20
   chanceToIdle: 0.3
-  targetReachThreshold: 0.5
+  targetReachThreshold: 2
+  viewAngle: 90

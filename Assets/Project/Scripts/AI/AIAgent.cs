@@ -28,13 +28,23 @@ public class AIAgent : MonoBehaviour
     private void OnValidate()
     {
         GetReferences();
-
     }
 
     private void Awake()
     {
         GetReferences();
         InitializeStates();
+    }
+
+    private void Start()
+    {
+        StartState();
+    }
+
+    private void Update()
+    {
+        stateMachine.Update(this);
+        UpdateAnimator();
     }
 
     private void GetReferences()
@@ -77,16 +87,10 @@ public class AIAgent : MonoBehaviour
         stateMachine = new AIStateMachine(states);
     }
 
-    private void Start()
+    private void StartState()
     {
-        currentStateType = AIStateType.Idle;
-        stateMachine.Initialize(AIStateType.Idle, this);
-    }
-
-    private void Update()
-    {
-        stateMachine.Update(this);
-        UpdateAnimator();
+        currentStateType = stateConfigs[0].GetStateType();
+        stateMachine.Initialize(currentStateType, this);
     }
 
     private void UpdateAnimator()
@@ -99,5 +103,13 @@ public class AIAgent : MonoBehaviour
     {
         stateMachine.ChangeState(newState, this);
         currentStateType = newState;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (stateMachine != null)
+        {
+            stateMachine.DrawGizmos(this);
+        }
     }
 }

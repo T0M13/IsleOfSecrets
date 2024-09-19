@@ -13,18 +13,23 @@ public class MoveComponent : ScriptableObject, MoveBehaviour
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
     public float RunSpeed { get => runSpeed; set => runSpeed = value; }
 
-    public void Move(Vector2 movement, bool isSprinting, bool isCrouching, Transform followTransform, Transform playerTransform)
+ public void Move(Vector2 movement, bool isSprinting, bool isCrouching, Transform followTransform, Rigidbody playerRigidbody)
+{
+    float speed = isCrouching ? crouchSpeed : (isSprinting ? runSpeed : moveSpeed);
+
+    if (movement != Vector2.zero)
     {
-        float speed = isCrouching ? crouchSpeed : (isSprinting ? runSpeed : moveSpeed);
+        Vector3 moveDirection = (followTransform.forward * movement.y + followTransform.right * movement.x).normalized;
+        moveDirection.y = 0;
 
-        if (movement != Vector2.zero)
-        {
-            Vector3 moveDirection = (followTransform.forward * movement.y + followTransform.right * movement.x).normalized;
-            moveDirection.y = 0;
+        // Use Rigidbody's MovePosition to handle movement
+        Vector3 newPosition = playerRigidbody.position + moveDirection * speed * Time.deltaTime;
+        playerRigidbody.MovePosition(newPosition);
 
-            playerTransform.position += moveDirection * speed * Time.deltaTime;
-            playerTransform.rotation = Quaternion.Euler(0, followTransform.rotation.eulerAngles.y, 0);
-            followTransform.localEulerAngles = new Vector3(followTransform.localEulerAngles.x, 0, 0);
-        }
+        // Handle rotation
+        playerRigidbody.MoveRotation(Quaternion.Euler(0, followTransform.rotation.eulerAngles.y, 0));
+        followTransform.localEulerAngles = new Vector3(followTransform.localEulerAngles.x, 0, 0);
     }
+}
+
 }

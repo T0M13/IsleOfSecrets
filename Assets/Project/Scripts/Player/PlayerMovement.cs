@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private JumpComponent jumpComponent;
     [SerializeField] private bool canJump = true;
+    [SerializeField][ShowOnly] private bool hasJumped = false;
     [SerializeField][ShowOnly] private bool isJumping = false;
     [SerializeField] private float jumpThreshold = .1f;
 
@@ -83,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public bool HasJumped { get => hasJumped; set => hasJumped = value; }
+
     private void Awake()
     {
         GetReferences();
@@ -116,14 +119,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return;
 
-        moveComponent.Move(Movement, IsSprinting, IsCrouching, playerReferences.FollowPlayerTarget, transform);
+        moveComponent.Move(Movement, IsSprinting, IsCrouching, playerReferences.FollowPlayerTarget, playerReferences.PlayerBody);
     }
 
     private void Jump()
     {
-        if (!canJump || !isJumping) return;
+        if (!canJump || !isJumping || HasJumped) return;
 
         jumpComponent.Jump(playerReferences.PlayerBody, playerReferences);
+        HasJumped = true;
     }
 
     private void CheckJumpAndFallThresholds()
@@ -133,17 +137,21 @@ public class PlayerMovement : MonoBehaviour
         if (verticalVelocity > jumpThreshold)
         {
             isJumping = true;
+            HasJumped = true;
             isFalling = false;
+
         }
         else if (verticalVelocity < fallThreshold && !playerReferences.IsGrounded)
         {
             isJumping = false;
+            HasJumped = true;
             isFalling = true;
         }
         else
         {
             isJumping = false;
             isFalling = false;
+            HasJumped = false;
         }
     }
 
@@ -199,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext value)
     {
-        if (isJumping) return;
+        if (isJumping || hasJumped) return;
         if (isCrouching) return;
         isJumping = value.ReadValue<float>() >= 1f;
     }

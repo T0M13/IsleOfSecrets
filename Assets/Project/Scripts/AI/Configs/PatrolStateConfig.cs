@@ -8,6 +8,7 @@ public class PatrolStateConfig : AIStateConfig
     public float maxPatrolTime = 5f;
     public float chanceToIdle = 0.3f;
     public float targetReachThreshold = 0.5f;
+    public float viewAngle = 90f;
 
     public override AIStateType GetStateType()
     {
@@ -17,7 +18,7 @@ public class PatrolStateConfig : AIStateConfig
     public override AIState InitializeState(AIAgent agent)
     {
         PatrolState patrolState = new PatrolState();
-        patrolState.SetPatrolConfig(patrolSpeed, patrolRadius, maxPatrolTime, chanceToIdle, targetReachThreshold);
+        patrolState.SetPatrolConfig(patrolSpeed, patrolRadius, maxPatrolTime, chanceToIdle, targetReachThreshold, viewAngle);
         return patrolState;
     }
 }

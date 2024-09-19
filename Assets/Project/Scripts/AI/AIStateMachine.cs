@@ -43,4 +43,9 @@ public class AIStateMachine
         return stateDictionary.ContainsKey(stateType);
     }
 
+    public void DrawGizmos(AIAgent agent)
+    {
+        currentState.DrawGizmos(agent);
+    }
+
 }
